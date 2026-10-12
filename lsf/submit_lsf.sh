@@ -12,10 +12,10 @@ set -euo pipefail
 mode=${1:?usage: submit_lsf.sh normal|bisulfite}
 
 # ---- settings -------------------------------------------------------------
-IMAGE=${IMAGE:-yourrepo/mapability:1.4.0}
-QUEUE=${QUEUE:-general}
-GROUP=${GROUP:-compute-yourlab}
-WORK=${WORK:-/scratch/yourlab/mapability}           # must be visible inside the container
+IMAGE=${IMAGE:-chrisamiller/mapability:0.3}
+QUEUE=${QUEUE:-timley}
+GROUP=${GROUP:-compute-timley}
+WORK=${WORK:-/scratch1/fs1/timley/mapability/work}           # must be visible inside the container
 export LSF_DOCKER_VOLUMES="${LSF_DOCKER_VOLUMES:-$WORK:$WORK}"
 REF=$WORK/ref/ref.fa
 MINQ=20
@@ -24,7 +24,7 @@ FRAG_LEN=${FRAG_LEN:-500}
 SINGLE=${SINGLE:-0}
 layout=(-L "$READ_LEN" -F "$FRAG_LEN")
 (( SINGLE )) && layout+=(-S)
-MAX_RUNNING=40                                       # array throttle
+MAX_RUNNING=200                                       # array throttle
 if [[ $mode == normal ]]; then
   CHUNK_BP=50000000; CORES=16; MEM=32GB
 else
