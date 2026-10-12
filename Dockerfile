@@ -1,6 +1,6 @@
 # Exhaustive paired-end mappability (normal + bisulfite) with bwa-mem3.
 #
-# Build for the cluster (x86_64):
+# Build for x86_64 platforms:
 #   docker buildx build --platform linux/amd64 -t mapability:1.4.0 .
 FROM debian:bookworm-slim AS build
 RUN apt-get update && apt-get install -y --no-install-recommends gcc libc6-dev make zlib1g-dev \

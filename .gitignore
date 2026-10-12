@@ -1,0 +1,6 @@
+out/
+out_bisulfite/
+annotations/
+src/mapsim
+*.o
+.DS_Store

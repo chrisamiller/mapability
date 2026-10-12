@@ -1,13 +1,17 @@
 # mapability
 
-Exhaustive paired-end or single-end mappability of a genome with
-[bwa-mem3](https://github.com/fg-labs/bwa-mem3), in normal and bisulfite modes.
+Create a bed file of "unmappable" regions for a given genome, by mapping all possible reads back to the 
+reference with [bwa-mem3](https://github.com/fg-labs/bwa-mem3). Can be run in normal and bisulfite mode
 
+### Approach
 For every fragment start position, a perfect 2×150 bp pair with a 500 bp insert (defaults) is simulated, aligned
 back with bwa-mem3, and checked against its known origin. A base is **unmappable** if no correctly placed
 read with MAPQ ≥ 20 covers it. Reference N bases are treated like any other base: an N covered by a
 good read (e.g. at the edge of a gap, aligned as a mismatch) is mappable; gap interiors that no read
 can reach are unmappable.
+
+Note: This is a strict definition, and there are many regions with reduced mapability that are not 
+represented here. It would be a simple extension to identify these in a later version. 
 
 ## Method
 
@@ -138,3 +142,5 @@ copies appear in `single_strand.bed` as `OB_only`.
 With `-L 100 -F 300` the segdup interior is `chrA 200296 202704` (mates rescue ~300 bp); with `-S`
 (single-end) it is `chrA 200140 202860`, and several short natural repeats are flagged that paired
 reads resolve.
+
+Generated with assistance from Claude Opus 5.5
